@@ -10,20 +10,20 @@ namespace ChinookInterviewYT.Controllers
     [ApiController]
     public class CustomersController(ChinookContext chinookContext) : ControllerBase
     {
-        [HttpGet]
+        [HttpGet("GetAllCustomers")]
         public async Task<ActionResult<List<Customer>>> GetCustomersASync()
         {
             try
             {
-                var customers = await chinookContext.Customers.ToListAsync();
+                var customers = await chinookContext.Customers
+                    .OrderBy(c => c.LastName)
+                    .ToListAsync();
                 return Ok(customers);
             }
             catch (Exception ex) {
+                Console.WriteLine(ex.Message);
                 return Problem();
             }
-
-
-            
         }
     }
 }
