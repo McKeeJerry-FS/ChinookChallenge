@@ -1,5 +1,7 @@
 using ChinookInterviewYT.Client.Pages;
 using ChinookInterviewYT.Components;
+using ChinookInterviewYT.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,10 +10,10 @@ builder.Services.AddRazorComponents()
     .AddInteractiveWebAssemblyComponents();
 
 //uncomment to Add a connection the database. you need a db context class to do this
-//builder.Services.AddDbContext<ApplicationDbContext>(options =>
-//{
-//    options.UseNpgsql(builder.Configuration.GetConnectionString("DbConnection"));
-//});
+builder.Services.AddDbContext<ChinookContext>(options =>
+{
+    options.UseNpgsql(builder.Configuration.GetConnectionString("ChinookDb"));
+});
 
 builder.Services.AddHttpClient();
 
@@ -21,13 +23,13 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
     {
-        Title = "<APP NAME> API",
+        Title = "Chinook Interview Challenge API",
         Version = "v1",
-        Description = "Describe APP API SPEC",
+        Description = "Chinook Interview Challenge API SPEC",
         Contact = new Microsoft.OpenApi.Models.OpenApiContact
         {
-            Name = "Coder Foundry",
-            Email = "info@coderfoundry.com",
+            Name = "Jerry McKee Jr",
+            Email = "jerry@jmjmediadesign.net",
         }
     });
 });
